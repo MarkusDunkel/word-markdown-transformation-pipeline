@@ -11,69 +11,69 @@ tags:
 ## Richtlinie zur Dokumentation von Prozessautomatisierungsprojekten
 
 ## 1. Zweck der Richtlinie
-Diese Richtlinie definiert die Standards zur Dokumentation von Prozessautomatisierungsprojekten.  
-Ziel ist eine einheitliche, nachvollziehbare und langfristig wartbare Dokumentation über den gesamten Lebenszyklus eines automatisierten Prozesses.
+This guideline defines the standards for documenting process automation projects.  
+The objective is consistent, traceable, and maintainable documentation across the entire lifecycle of an automated process.
 
-Die Dokumentation soll:
-- Entscheidungen nachvollziehbar machen
-- Anforderungen dokumentieren
-- technische Umsetzung dokumentieren
-- Tests und Freigaben dokumentieren
-- den Betrieb und die Nutzung dokumentieren
-- Wissen langfristig sichern
-- die Zusammenarbeit mit externen Partnern ermöglichen
+The documentation should:
+- make decisions traceable
+- document requirements
+- document technical implementation
+- document tests and approvals
+- document operations and usage
+- preserve knowledge long-term
+- enable collaboration with external partners
 
 ---
 
 ## 2. Grundprinzipien der Dokumentation
 
-Für alle Prozessautomatisierungsprojekte gelten folgende Grundprinzipien:
+The following core principles apply to all process automation projects:
 
-1. Die Dokumentation muss einer Prozess-ID zugeordnet sein.
-2. Fachliche Dokumente werden in Word geführt.
-3. Technische Dokumentation wird im Code-Repository in Markdown geführt.
-4. Entscheidungen müssen dokumentiert werden.
-5. Tests und Freigaben müssen nachvollziehbar dokumentiert werden.
-6. Die Dokumentation muss auch Jahre später den Prozess erklärbar machen.
-7. Die Dokumentation ist Teil des Projekts und nicht optional.
+1. The documentation must be assigned to a process ID.
+2. Business-facing documents are maintained in Word.
+3. Technical documentation is maintained in Markdown in the code repository.
+4. Decisions must be documented.
+5. Tests and approvals must be documented in a traceable way.
+6. The documentation must still explain the process years later.
+7. Documentation is part of the project and is not optional.
 
 ---
 
 ## 3. Dokumentstruktur eines Prozessautomatisierungsprojekts
 
-Jedes Prozessautomatisierungsprojekt besteht aus folgenden Standarddokumenten:
+Every process automation project consists of the following standard documents:
 
 | Nr. | Dokument                       | Zweck                                      | Format                |
 | --- | ------------------------------ | ------------------------------------------ | --------------------- |
-| 1   | Lastenheft / Grobkonzept       | Fachliche Anforderungen und Zieldefinition | Word                  |
-| 2   | Feinkonzept & Abnahmekriterien | Detailkonzept und fachliche Tests          | Word                  |
-| 3   | Technische Dokumentation       | Architektur, Umsetzung, technische Details | Markdown (Repository) |
-| 4   | Test- und Freigabedokument     | Testergebnisse und Freigabe Produktion     | Word                  |
-| 5   | Benutzerdokumentation          | Anleitung für Endanwender                  | Word                  |
+| 1   | Lastenheft / Grobkonzept       | Business requirements and target definition | Word                  |
+| 2   | Feinkonzept & Abnahmekriterien | Detailed concept and business tests         | Word                  |
+| 3   | Technische Dokumentation       | Architecture, implementation, technical details | Markdown (Repository) |
+| 4   | Test- und Freigabedokument     | Test results and production approval        | Word                  |
+| 5   | Benutzerdokumentation          | Instructions for end users                  | Word                  |
 
-Diese Dokumente bilden gemeinsam die vollständige Dokumentation eines automatisierten Prozesses.
+Together, these documents form the complete documentation of an automated process.
 
 ---
 
 ## 4. Prozess-ID und Benennung der Dokumente
 
-Jeder Prozess erhält eine eindeutige Prozess-ID.
+Each process receives a unique process ID.
 
 ### Beispiel Prozess-ID
 YYYY-TT-nnnn-{Liefergegenstand}
 
-YYYY... Jahr
-TT... Kürzel des Dokument-Typs
-nnn... Dummy-Liefergegenstands-ID (Platzhalter)
+YYYY... Year  
+TT... Document type abbreviation  
+nnn... Dummy delivery-item ID (placeholder)
 
-Beispiel:
+Example:
 2026-LH-0001-Arbeitszeiterfassung
 
-Template-Standardwert:
+Template default value:
 YYYY-LH-nnnn-{Liefergegenstand}
 
 ### Benennung der Dokumente
-Alle Dokumente müssen nach folgendem Schema benannt werden:
+All documents must be named according to the following schema:
 
 
 | Dokument-Typ | Kürzel | File-Typ |  
@@ -84,7 +84,7 @@ Alle Dokumente müssen nach folgendem Schema benannt werden:
 | Test_und_Auslieferung | TA | .docx |
 | Benutzerdokumentation | BD | .docx |
 
-Beispiel-Dateinamen mit Dummy-Werten:
+Example file names with dummy values:
 - `YYYY-LH-nnnn-{Liefergegenstand}.docx`
 - `YYYY-PH-nnnn-{Liefergegenstand}.docx`
 - `YYYY-TD-nnnn-{Liefergegenstand}.md`
@@ -96,95 +96,95 @@ Beispiel-Dateinamen mit Dummy-Werten:
 ## 5. Beschreibung der einzelnen Dokumente
 
 ### 5.1 Lastenheft / Grobkonzept
-**Ziel:** Beschreibung der fachlichen Anforderungen und des Prozessziels.
+**Ziel:** Description of the business requirements and the process goal.
 
 **Inhalte:**
-- Problemstellung
-- **Ziel des Prozesses**
-- Business Nutzen
-- **Anforderungen (Muss / Soll)**
-- Grober Prozessablauf
-- Annahmen
-- Offene Punkte
-- **Grobe Aufwandsschätzung**
-- Projektentscheidung
-- **Anmerkungen Digitalisierungsteam**
+- Problem statement
+- **Process goal**
+- Business benefit
+- **Requirements (Must / Should)**
+- High-level process flow
+- Assumptions
+- Open points
+- **Rough effort estimate**
+- Project decision
+- **Comments from the digitalization team**
 
-Dieses Dokument wird hauptsächlich vom Fachbereich erstellt.
+This document is mainly created by the business department.
 
 ---
 
 ### 5.2 Feinkonzept & Abnahmekriterien
-**Ziel:** Detaillierte Beschreibung des Prozesses und Definition der Abnahmekriterien.
+**Ziel:** Detailed description of the process and definition of acceptance criteria.
 
 **Inhalte:**
-- Detailprozess
-- **Domain-Impact-Analyse**
-- Betroffene Systeme
-- Schnittstellen
-- Make-or-Buy Entscheidung
-- Infrastruktur-Anforderungen
-- Aufwandsschätzung
-- Abnahmekriterien
-- **Fachliche Testfälle**
-- **Anmerkungen Digitalisierungsteam**
+- Detailed process
+- **Domain impact analysis**
+- Affected systems
+- Interfaces
+- Make-or-buy decision
+- Infrastructure requirements
+- Effort estimate
+- Acceptance criteria
+- **Business test cases**
+- **Comments from the digitalization team**
 
-Dieses Dokument wird gemeinsam von Fachbereich und IT erstellt.
+This document is created jointly by the business department and IT.
 
 ---
 
 ### 5.3 Technische Dokumentation (Repository)
-**Ziel:** Dokumentation der technischen Umsetzung.
+**Ziel:** Documentation of the technical implementation.
 
 **Inhalte:**
-- Systemarchitektur
-- Datenflüsse
-- Schnittstellen
-- Datenmodelle
+- System architecture
+- Data flows
+- Interfaces
+- Data models
 - Deployment
-- Konfiguration
-- Logging / Monitoring
-- Repository Struktur
-- Links zu Pull Requests
-- Technische Tests
-- Known Issues
-- Betriebskonzept
+- Configuration
+- Logging / monitoring
+- Repository structure
+- Links to pull requests
+- Technical tests
+- Known issues
+- Operations concept
 
-Dieses Dokument wird von der IT / Entwicklung gepflegt und im Repository versioniert.
+This document is maintained by IT / engineering and versioned in the repository.
 
 ---
 
 ### 5.4 Test- und Freigabedokument
-**Ziel:** Dokumentation der Tests und Freigabe für den Produktivbetrieb.
+**Ziel:** Documentation of testing and approval for production operations.
 
 **Inhalte:**
-- Testprotokolle
-- Testergebnisse
-- Abnahme Fachbereich
-- Abnahme IT
-- Freigabe Produktivsystem
-- Installationsdatum
+- Test logs
+- Test results
+- Business sign-off
+- IT sign-off
+- Production system approval
+- Installation date
 - Version
-- Verantwortliche
-- Unterschriften / Freigaben
+- Responsible persons
+- Signatures / approvals
 
-Dieses Dokument dient als Nachweis für Abnahme und Produktivsetzung. Dieses Dokument wird gemeinsam von Fachbereich und IT erstellt.
+This document serves as evidence of acceptance and production rollout. This document is created jointly by the business department and IT.
 
 ---
 
 ### 5.5 Benutzerdokumentation
-**Ziel:** Dokumentation für Endanwender.
+**Ziel:** Documentation for end users.
 
 **Inhalte:**
-- Prozessbeschreibung
-- Schritt-für-Schritt Anleitung
+- Process description
+- Step-by-step guide
 - Screenshots
-- Rollen und Berechtigungen
-- Fehlerfälle
+- Roles and permissions
+- Error cases
 - FAQ
-- Ansprechpartner
+- Contacts
 
-Dieses Dokument dient als Anwenderhandbuch. Dieses Dokument wird von den Fachabteilungen erstellt.
+This document serves as a user manual. This document is created by the business departments.
 
 ---
 
@@ -204,10 +204,10 @@ Dieses Dokument dient als Anwenderhandbuch. Dieses Dokument wird von den Fachabt
 ---
 
 ## 7. Versionierung
-- Jedes Dokument muss eine Versionsnummer enthalten.
-- Änderungen müssen in der Änderungshistorie dokumentiert werden.
-- Technische Dokumentation wird über Git versioniert.
-- Produktivsetzungen müssen einer Version zugeordnet sein.
+- Each document must contain a version number.
+- Changes must be documented in the change history.
+- Technical documentation is versioned via Git.
+- Production releases must be assigned to a version.
 
 ---
 
@@ -224,10 +224,10 @@ Dieses Dokument dient als Anwenderhandbuch. Dieses Dokument wird von den Fachabt
 ---
 
 ## 9. Ziel der Dokument-Governance
-Ziel dieser Dokumentstruktur ist:
-- Standardisierung der Projektdokumentation
-- Nachvollziehbarkeit von Entscheidungen
-- Strukturierte Zusammenarbeit zwischen Fachbereich und IT
-- Übergabe an Betrieb und Support
-- Dokumentation für Audits und Qualitätssicherung
-- Langfristige Wissenssicherung
+The goal of this document structure is:
+- standardization of project documentation
+- traceability of decisions
+- structured collaboration between business department and IT
+- handover to operations and support
+- documentation for audits and quality assurance
+- long-term knowledge retention
