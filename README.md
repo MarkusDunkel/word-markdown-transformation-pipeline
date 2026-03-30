@@ -1,43 +1,43 @@
 # Markdown ↔ Word Konvertierungs-Workflow
 
-Dieses Verzeichnis enthält Skripte, um Word-Dokumente nach Markdown zu konvertieren und anschließend wieder nach Word zurückzuwandeln, inklusive Nachbearbeitung.
+This directory contains scripts to convert Word documents to Markdown and then convert them back to Word, including post-processing.
 
 ## Übersicht
 
-Der gesamte Ablauf besteht aus zwei Richtungen:
+The overall flow consists of two directions:
 
 ### 1. Word → Markdown
-DOCX → pandoc → Markdown → optionale Python-Nachbearbeitung
+DOCX → pandoc → Markdown → optional Python post-processing
 
 ### 2. Markdown → Word
-Markdown → pandoc mit Word-Vorlage → DOCX → Python-Nachbearbeitung für Tabellen
+Markdown → pandoc with Word template → DOCX → Python post-processing for tables
 
 ## Dateien im Ordner
 
 | Datei | Beschreibung |
 |---|---|
-| `convert_docx.sh` | Konvertiert Word → Markdown |
-| `build_docx.sh` | Konvertiert Markdown → Word |
-| `fix_table_borders.py` | Formatiert Tabellen im DOCX |
-| `md_postprocess.py` | Bereinigt Markdown, z. B. TOC entfernen, YAML ergänzen |
-| `vorlage.dotx` | Word-Vorlage für Pandoc |
-| `README.md` | Diese Dokumentation |
+| `convert_docx.sh` | Converts Word → Markdown |
+| `build_docx.sh` | Converts Markdown → Word |
+| `fix_table_borders.py` | Formats tables in DOCX |
+| `md_postprocess.py` | Cleans Markdown, e.g. removes TOC and adds YAML |
+| `vorlage.dotx` | Word template for Pandoc |
+| `README.md` | This documentation |
 
 ## Voraussetzungen
 
-Benötigte Programme:
+Required programs:
 
 - `pandoc`
 - `python`
 - `python-docx`
 
-Installation von `python-docx`:
+Install `python-docx`:
 
 ```bash
 python -m pip install python-docx
 ```
 
-Versionen prüfen:
+Check versions:
 
 ```bash
 pandoc --version
@@ -46,7 +46,7 @@ python --version
 
 ## Word → Markdown
 
-Beispiel:
+Example:
 
 ```bash
 ./convert_docx.sh \
@@ -54,7 +54,7 @@ Beispiel:
   /c/Users/markus.dunkel/Downloads/output.md
 ```
 
-Optionales Nachbearbeiten des erzeugten Markdown:
+Optional post-processing of the generated Markdown:
 
 ```bash
 python md_postprocess.py raw.md clean.md
@@ -62,7 +62,7 @@ python md_postprocess.py raw.md clean.md
 
 ## Markdown → Word
 
-Beispiel:
+Example:
 
 ```bash
 ./build_docx.sh \
@@ -72,7 +72,7 @@ Beispiel:
 
 ## Referenz: direktes Pandoc-Kommando
 
-Das Skript baut im Kern auf diesem Pandoc-Aufruf auf:
+At its core, the script is based on this Pandoc call:
 
 ```bash
 pandoc /c/Users/markus.dunkel/Downloads/fertig.md \
@@ -85,15 +85,15 @@ pandoc /c/Users/markus.dunkel/Downloads/fertig.md \
 
 ## Namenskonvention für Templates
 
-Alle Template-Dateien verwenden den Platzhalter-Standard `YYYY-TT-nnnn-Liefergegenstand`:
+All template files use the placeholder standard `YYYY-TT-nnnn-Liefergegenstand`:
 
-- `YYYY-LH-nnnn-Liefergegenstand.docx` (Lastenheft)
-- `YYYY-PH-nnnn-Liefergegenstand.docx` (Pflichtenheft / Feinkonzept)
-- `YYYY-TD-nnnn-Liefergegenstand.md` (Technische Dokumentation)
-- `YYYY-TA-nnnn-Liefergegenstand.docx` (Test und Auslieferung)
-- `YYYY-BD-nnnn-Liefergegenstand.docx` (Benutzerdokumentation)
+- `YYYY-LH-nnnn-Liefergegenstand.docx` (Requirements specification)
+- `YYYY-PH-nnnn-Liefergegenstand.docx` (Functional specification / detailed concept)
+- `YYYY-TD-nnnn-Liefergegenstand.md` (Technical documentation)
+- `YYYY-TA-nnnn-Liefergegenstand.docx` (Testing and delivery)
+- `YYYY-BD-nnnn-Liefergegenstand.docx` (User documentation)
 
-Markdown-Templates liegen unter `markdown-templates/`; Word-Templates werden mit `./build_all_docx_templates.sh` in `Word-Templates/` erzeugt.
+Markdown templates are located in `markdown-templates/`; Word templates are generated in `Word-Templates/` with `./build_all_docx_templates.sh`.
 
 ## Typischer Gesamt-Workflow
 
@@ -101,10 +101,10 @@ Markdown-Templates liegen unter `markdown-templates/`; Word-Templates werden mit
 # 1. Word → Markdown
 ./convert_docx.sh input.docx raw.md
 
-# 2. Markdown bereinigen
+# 2. Clean Markdown
 python md_postprocess.py raw.md clean.md
 
-# 3. Markdown manuell weiter bearbeiten
+# 3. Continue editing Markdown manually
 
 # 4. Markdown → Word
 ./build_docx.sh clean.md final.docx
@@ -113,16 +113,16 @@ python md_postprocess.py raw.md clean.md
 ## Hinweise
 
 ### Tabellen
-Tabellen werden nach der Pandoc-Konvertierung automatisch nachbearbeitet, z. B.:
+After Pandoc conversion, tables are automatically post-processed, for example:
 
-- Rahmen
-- Innenlinien
-- graue Linien
-- vertikale Zentrierung
-- Korrektur von Absatzabständen
+- Borders
+- Inner lines
+- Gray lines
+- Vertical centering
+- Correction of paragraph spacing
 
 ### Word-Vorlage
-Layout, Schriftarten, Überschriften, Inhaltsverzeichnis und weitere Formatierungen werden über `vorlage.dotx` gesteuert.
+Layout, fonts, headings, table of contents, and additional formatting are controlled via `vorlage.dotx`.
 
 ## Troubleshooting
 
@@ -133,10 +133,10 @@ python -m pip install python-docx
 ```
 
 ### Pandoc findet Bilder nicht
-Dann `--resource-path` prüfen.
+Then check `--resource-path`.
 
 ### Tabellen ohne Rahmen
-Dann wurde `fix_table_borders.py` nicht ausgeführt oder `python-docx` fehlt.
+Then `fix_table_borders.py` was not executed, or `python-docx` is missing.
 
 ## Projektstruktur
 
@@ -156,5 +156,5 @@ markdown_word_transform/
 |---|---|
 | Word → Markdown | `convert_docx.sh` |
 | Markdown → Word | `build_docx.sh` |
-| Tabellen formatieren | `fix_table_borders.py` |
-| Markdown bereinigen | `md_postprocess.py` |
+| Format tables | `fix_table_borders.py` |
+| Clean Markdown | `md_postprocess.py` |
