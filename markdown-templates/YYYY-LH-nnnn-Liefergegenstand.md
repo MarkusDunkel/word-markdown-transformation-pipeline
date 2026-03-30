@@ -1,7 +1,11 @@
+---
+lang: de-DE
+---
+
 |                     |                       |
 |---------------------|-----------------------|
 | Titel               |                       |
-| Dokument-Typ        | Konzept / Lastenheft  |
+| Dokument-Typ        | Lastenheft            |
 | Liefergegenstand-ID |                       |
 | Liefergegenstand    |                       |
 | Bereich             |                       |
