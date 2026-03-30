@@ -1,9 +1,10 @@
-# Test- und Freigabedokument – {{PROZESS_ID}} – {{PROZESSNAME}}
+# Test- und Auslieferungsdokument – YYYY-TA-nnnn-Liefergegenstand
 
 ## 1. Dokumentinformationen
-### 1.1 Version und Status
-### 1.2 Testzeitraum und Installationsdatum
-### 1.3 Änderungsverlauf
+### 1.1 Prozess-ID und Dateiname: YYYY-TA-nnnn-Liefergegenstand.docx
+### 1.2 Version und Status
+### 1.3 Testzeitraum und Installationsdatum
+### 1.4 Änderungsverlauf
 
 ## 2. Testgegenstand und Umfang
 ### 2.1 Ziel des Tests

@@ -16,7 +16,7 @@ Markdown → pandoc mit Word-Vorlage → DOCX → Python-Nachbearbeitung für Ta
 
 | Datei | Beschreibung |
 |---|---|
-| `convertdocx.sh` | Konvertiert Word → Markdown |
+| `convert_docx.sh` | Konvertiert Word → Markdown |
 | `build_docx.sh` | Konvertiert Markdown → Word |
 | `fix_table_borders.py` | Formatiert Tabellen im DOCX |
 | `md_postprocess.py` | Bereinigt Markdown, z. B. TOC entfernen, YAML ergänzen |
@@ -49,7 +49,7 @@ python --version
 Beispiel:
 
 ```bash
-./convertdocx.sh \
+./convert_docx.sh \
   /c/Users/markus.dunkel/Downloads/input.docx \
   /c/Users/markus.dunkel/Downloads/output.md
 ```
@@ -83,11 +83,23 @@ pandoc /c/Users/markus.dunkel/Downloads/fertig.md \
   -o /c/Users/markus.dunkel/Downloads/ziel.docx
 ```
 
+## Namenskonvention für Templates
+
+Alle Template-Dateien verwenden den Platzhalter-Standard `YYYY-TT-nnnn-Liefergegenstand`:
+
+- `YYYY-LH-nnnn-Liefergegenstand.docx` (Lastenheft)
+- `YYYY-PH-nnnn-Liefergegenstand.docx` (Pflichtenheft / Feinkonzept)
+- `YYYY-TD-nnnn-Liefergegenstand.md` (Technische Dokumentation)
+- `YYYY-TA-nnnn-Liefergegenstand.docx` (Test und Auslieferung)
+- `YYYY-BD-nnnn-Liefergegenstand.docx` (Benutzerdokumentation)
+
+Markdown-Templates liegen unter `markdown-templates/`; Word-Templates werden mit `./build_all_docx_templates.sh` in `Word-Templates/` erzeugt.
+
 ## Typischer Gesamt-Workflow
 
 ```bash
 # 1. Word → Markdown
-./convertdocx.sh input.docx raw.md
+./convert_docx.sh input.docx raw.md
 
 # 2. Markdown bereinigen
 python md_postprocess.py raw.md clean.md
@@ -130,7 +142,7 @@ Dann wurde `fix_table_borders.py` nicht ausgeführt oder `python-docx` fehlt.
 
 ```text
 markdown_word_transform/
-├── convertdocx.sh
+├── convert_docx.sh
 ├── build_docx.sh
 ├── fix_table_borders.py
 ├── md_postprocess.py
@@ -142,7 +154,7 @@ markdown_word_transform/
 
 | Richtung | Skript |
 |---|---|
-| Word → Markdown | `convertdocx.sh` |
+| Word → Markdown | `convert_docx.sh` |
 | Markdown → Word | `build_docx.sh` |
 | Tabellen formatieren | `fix_table_borders.py` |
 | Markdown bereinigen | `md_postprocess.py` |

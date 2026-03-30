@@ -1,9 +1,10 @@
-# Lastenheft / Grobkonzept – {{PROZESS_ID}} – {{PROZESSNAME}}
+# Lastenheft / Grobkonzept – YYYY-LH-nnnn-Liefergegenstand
 
 ## 1. Dokumentinformationen
-### 1.1 Version und Status
-### 1.2 Autor:innen und Stakeholder
-### 1.3 Änderungsverlauf
+### 1.1 Prozess-ID und Dateiname: YYYY-LH-nnnn-Liefergegenstand.docx
+### 1.2 Version und Status
+### 1.3 Autor:innen und Stakeholder
+### 1.4 Änderungsverlauf
 
 ## 2. Ausgangslage und Problemstellung
 ### 2.1 Aktuelle Situation
