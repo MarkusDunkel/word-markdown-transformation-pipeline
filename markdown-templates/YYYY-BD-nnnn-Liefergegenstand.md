@@ -1,9 +1,10 @@
-# Benutzerdokumentation – {{PROZESS_ID}} – {{PROZESSNAME}}
+# Benutzerdokumentation – YYYY-BD-nnnn-Liefergegenstand
 
 ## 1. Dokumentinformationen
-### 1.1 Version und Gültigkeit
-### 1.2 Zielgruppe
-### 1.3 Änderungsverlauf
+### 1.1 Prozess-ID und Dateiname: YYYY-BD-nnnn-Liefergegenstand.docx
+### 1.2 Version und Gültigkeit
+### 1.3 Zielgruppe
+### 1.4 Änderungsverlauf
 
 ## 2. Prozessüberblick
 ### 2.1 Zweck des Prozesses

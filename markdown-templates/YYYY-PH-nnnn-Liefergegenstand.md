@@ -1,9 +1,10 @@
-# Feinkonzept & Abnahmekriterien – {{PROZESS_ID}} – {{PROZESSNAME}}
+# Pflichtenheft / Feinkonzept & Abnahmekriterien – YYYY-PH-nnnn-Liefergegenstand
 
 ## 1. Dokumentinformationen
-### 1.1 Version und Status
-### 1.2 Beteiligte Fachbereiche und IT
-### 1.3 Änderungsverlauf
+### 1.1 Prozess-ID und Dateiname: YYYY-PH-nnnn-Liefergegenstand.docx
+### 1.2 Version und Status
+### 1.3 Beteiligte Fachbereiche und IT
+### 1.4 Änderungsverlauf
 
 ## 2. Detailprozessbeschreibung
 ### 2.1 Prozessziel und Scope

@@ -60,14 +60,17 @@ Diese Dokumente bilden gemeinsam die vollständige Dokumentation eines automatis
 Jeder Prozess erhält eine eindeutige Prozess-ID.
 
 ### Beispiel Prozess-ID
-YYYY-TT-NNNN-{Liefergegenstand}
+YYYY-TT-nnnn-{Liefergegenstand}
 
 YYYY... Jahr
-NNNN... Liefergegenstands-ID
-TT... Kürzel des Dokument-Typ
+TT... Kürzel des Dokument-Typs
+nnn... Dummy-Liefergegenstands-ID (Platzhalter)
 
 Beispiel:
 2026-LH-0001-Arbeitszeiterfassung
+
+Template-Standardwert:
+YYYY-LH-nnnn-{Liefergegenstand}
 
 ### Benennung der Dokumente
 Alle Dokumente müssen nach folgendem Schema benannt werden:
@@ -80,6 +83,13 @@ Alle Dokumente müssen nach folgendem Schema benannt werden:
 | Technische_Dokumentation | TD | .md  |
 | Test_und_Auslieferung | TA | .docx |
 | Benutzerdokumentation | BD | .docx |
+
+Beispiel-Dateinamen mit Dummy-Werten:
+- `YYYY-LH-nnnn-{Liefergegenstand}.docx`
+- `YYYY-PH-nnnn-{Liefergegenstand}.docx`
+- `YYYY-TD-nnnn-{Liefergegenstand}.md`
+- `YYYY-TA-nnnn-{Liefergegenstand}.docx`
+- `YYYY-BD-nnnn-{Liefergegenstand}.docx`
 
 ---
 
