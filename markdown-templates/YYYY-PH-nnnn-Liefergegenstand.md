@@ -15,92 +15,17 @@ lang: de-DE
 | Freigeber           |                       |
 | Freigabedatum       |                       |
 
-# Detailprozess
-Beschreibung des detaillierten Soll-Prozesses.
-
-## Prozessablauf
-
-## Prozessregeln / Logik
-
-## Ausnahmen / Sonderfälle
-
-# Domain-Impact-Analyse
-Welche Unternehmensbereiche / Domänen sind betroffen?
-
-| Domäne / Bereich | Impact | Beschreibung |
-|------------------|--------|--------------|
-|                  |        |              |
-|                  |        |              |
-
-
-# Betroffene Systeme
-Liste aller Systeme, die betroffen sind.
-
-| System | Art der Änderung | Beschreibung |
-|--------|------------------|--------------|
-|        |                  |              |
-|        |                  |              |
-
-
-# Schnittstellen
-Beschreibung der Schnittstellen zwischen Systemen.
-
-| Schnittstelle | Quelle | Ziel | Beschreibung |
-|---------------|--------|------|--------------|
-|               |        |      |              |
-|               |        |      |              |
-
-
-# Make-or-Buy Entscheidung
-Wird eine Eigenentwicklung oder eine bestehende Lösung verwendet?
-
-**Optionen:**
-- Eigenentwicklung
-- Kaufsoftware
-- Erweiterung bestehendes System
-
-**Begründung:**
-(Text)
-
-
-# Infrastruktur-Anforderungen
-Technische Anforderungen an Infrastruktur, Betrieb und Sicherheit.
-
-- Server / Hosting
-- Datenbank
-- Netzwerk
-- Benutzer / Rollen
-- Backup / Recovery
-- Security / Berechtigungen
-- Monitoring
-- Logging
-
-
-# Aufwandsschätzung
-| Bereich | Aufwand |
-|--------|---------|
-| Entwicklung | |
-| Infrastruktur | |
-| Tests | |
-| Rollout | |
-| Dokumentation | |
-| Gesamt | |
-
-
-# Abnahmekriterien
-Wann gilt die Lösung als abgenommen?
-
-- 
-- 
-- 
-
-
-# Fachliche Testfälle
-| Testfall-ID | Beschreibung | Erwartetes Ergebnis |
-|-------------|--------------|---------------------|
-|             |              |                     |
-|             |              |                     |
-
-
-# Anmerkungen Digitalisierungsteam
-Technische Bewertung, Architekturentscheidungen, Risiken, offene Punkte.
+# INHALT
+# 1. ABLAUFBESCHREIBUNG
+## 1.1. DETAILLIERTE BESCHREIBUNG
+## 1.2. LOGIKEN UND FUNKTIONALITÄTEN
+## 1.3. AUSNAHMEN UND SONDERFÄLLE
+# 2. BETROFFENE SYSTEME
+## 2.1. SCHNITTSTELLENBESCHREIBUNG
+## 2.2. INFRASTRUKTUR
+# 3. ABNAHMEKRITERIEN UND TESTFÄLLE
+## 3.1. KRITERIUM 1
+## 3.2. KRITERIUM 2
+# 4. RISIKEN / OFFENE PUNKTE
+# 5. ANMERKUNGEN DIGITALISIERUNGSTEAM
+# 6. ÄNDERUNGSHISTORIE
