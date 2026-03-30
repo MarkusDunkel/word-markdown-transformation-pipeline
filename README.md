@@ -20,7 +20,7 @@ Markdown → pandoc mit Word-Vorlage → DOCX → Python-Nachbearbeitung für Ta
 | `build_docx.sh` | Konvertiert Markdown → Word |
 | `fix_table_borders.py` | Formatiert Tabellen im DOCX |
 | `md_postprocess.py` | Bereinigt Markdown, z. B. TOC entfernen, YAML ergänzen |
-| `vorlage-n.dotx` | Word-Vorlage für Pandoc |
+| `vorlage.dotx` | Word-Vorlage für Pandoc |
 | `README.md` | Diese Dokumentation |
 
 ## Voraussetzungen
@@ -77,7 +77,7 @@ Das Skript baut im Kern auf diesem Pandoc-Aufruf auf:
 ```bash
 pandoc /c/Users/markus.dunkel/Downloads/fertig.md \
   --resource-path=/c/Users/markus.dunkel/Downloads:/c/Users/markus.dunkel/Downloads/images \
-  --reference-doc=./vorlage-n.dotx \
+  --reference-doc=./vorlage.dotx \
   --toc \
   --number-sections \
   -o /c/Users/markus.dunkel/Downloads/ziel.docx
@@ -110,7 +110,7 @@ Tabellen werden nach der Pandoc-Konvertierung automatisch nachbearbeitet, z. B.:
 - Korrektur von Absatzabständen
 
 ### Word-Vorlage
-Layout, Schriftarten, Überschriften, Inhaltsverzeichnis und weitere Formatierungen werden über `vorlage-n.dotx` gesteuert.
+Layout, Schriftarten, Überschriften, Inhaltsverzeichnis und weitere Formatierungen werden über `vorlage.dotx` gesteuert.
 
 ## Troubleshooting
 
@@ -134,7 +134,7 @@ markdown_word_transform/
 ├── build_docx.sh
 ├── fix_table_borders.py
 ├── md_postprocess.py
-├── vorlage-n.dotx
+├── vorlage.dotx
 └── README.md
 ```
 

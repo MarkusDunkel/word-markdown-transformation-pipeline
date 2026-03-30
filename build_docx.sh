@@ -5,7 +5,7 @@ INPUT_MD="$1"
 OUTPUT_DOCX="$2"
 
 RESOURCE_PATH="/c/Users/markus.dunkel/Downloads:/c/Users/markus.dunkel/Downloads/images"
-REFERENCE_DOC="./vorlage-n.dotx"
+REFERENCE_DOC="./vorlage.dotx"
 
 TMP_DOCX="$(mktemp --suffix=.docx)"
 
