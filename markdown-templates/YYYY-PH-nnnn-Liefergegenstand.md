@@ -1,47 +1,106 @@
-# Pflichtenheft / Feinkonzept & Abnahmekriterien – YYYY-PH-nnnn-Liefergegenstand
+---
+lang: de-DE
+---
 
-## 1. Dokumentinformationen
-### 1.1 Prozess-ID und Dateiname: YYYY-PH-nnnn-Liefergegenstand.docx
-### 1.2 Version und Status
-### 1.3 Beteiligte Fachbereiche und IT
-### 1.4 Änderungsverlauf
+|                     |                       |
+|---------------------|-----------------------|
+| Titel               |                       |
+| Dokument-Typ        | Pflichtenheft         |
+| Liefergegenstand-ID |                       |
+| Liefergegenstand    |                       |
+| Bereich             |                       |
+| Autor               |                       |
+| Version             |                       |
+| Status              | Entwurf / Freigegeben |
+| Freigeber           |                       |
+| Freigabedatum       |                       |
 
-## 2. Detailprozessbeschreibung
-### 2.1 Prozessziel und Scope
-### 2.2 Detaillierter Prozessablauf
-### 2.3 Ausnahmen und Fehlerpfade
+# Detailprozess
+Beschreibung des detaillierten Soll-Prozesses.
 
-## 3. Domain-Impact-Analyse
-### 3.1 Betroffene Domänen und Teams
-### 3.2 Auswirkungen auf bestehende Prozesse
-### 3.3 Auswirkungen auf Compliance und Governance
+## Prozessablauf
 
-## 4. Systeme und Schnittstellen
-### 4.1 Betroffene Systeme
-### 4.2 Schnittstellen und Datenflüsse
-### 4.3 Abhängigkeiten zu Drittsystemen
+## Prozessregeln / Logik
 
-## 5. Lösungsentscheidung (Make-or-Buy)
-### 5.1 Bewertete Optionen
-### 5.2 Entscheidungskriterien
-### 5.3 Getroffene Entscheidung inkl. Begründung
+## Ausnahmen / Sonderfälle
 
-## 6. Infrastruktur- und Betriebsanforderungen
-### 6.1 Infrastruktur-Anforderungen
-### 6.2 Sicherheitsanforderungen
-### 6.3 Betriebs- und Supportmodell
+# Domain-Impact-Analyse
+Welche Unternehmensbereiche / Domänen sind betroffen?
 
-## 7. Aufwand, Planung und Risiken
-### 7.1 Aufwandsschätzung (Fachbereich/IT)
-### 7.2 Meilensteine und Zeitplan
-### 7.3 Projektrisiken und Gegenmaßnahmen
+| Domäne / Bereich | Impact | Beschreibung |
+|------------------|--------|--------------|
+|                  |        |              |
+|                  |        |              |
 
-## 8. Abnahmekriterien
-### 8.1 Fachliche Abnahmekriterien
-### 8.2 Technische Abnahmekriterien
-### 8.3 Qualitätskriterien und Nachweise
 
-## 9. Testkonzept und Anmerkungen Digitalisierungsteam
-### 9.1 Fachliche Testfälle
-### 9.2 Testdaten und Testvoraussetzungen
-### 9.3 Anmerkungen Digitalisierungsteam
+# Betroffene Systeme
+Liste aller Systeme, die betroffen sind.
+
+| System | Art der Änderung | Beschreibung |
+|--------|------------------|--------------|
+|        |                  |              |
+|        |                  |              |
+
+
+# Schnittstellen
+Beschreibung der Schnittstellen zwischen Systemen.
+
+| Schnittstelle | Quelle | Ziel | Beschreibung |
+|---------------|--------|------|--------------|
+|               |        |      |              |
+|               |        |      |              |
+
+
+# Make-or-Buy Entscheidung
+Wird eine Eigenentwicklung oder eine bestehende Lösung verwendet?
+
+**Optionen:**
+- Eigenentwicklung
+- Kaufsoftware
+- Erweiterung bestehendes System
+
+**Begründung:**
+(Text)
+
+
+# Infrastruktur-Anforderungen
+Technische Anforderungen an Infrastruktur, Betrieb und Sicherheit.
+
+- Server / Hosting
+- Datenbank
+- Netzwerk
+- Benutzer / Rollen
+- Backup / Recovery
+- Security / Berechtigungen
+- Monitoring
+- Logging
+
+
+# Aufwandsschätzung
+| Bereich | Aufwand |
+|--------|---------|
+| Entwicklung | |
+| Infrastruktur | |
+| Tests | |
+| Rollout | |
+| Dokumentation | |
+| Gesamt | |
+
+
+# Abnahmekriterien
+Wann gilt die Lösung als abgenommen?
+
+- 
+- 
+- 
+
+
+# Fachliche Testfälle
+| Testfall-ID | Beschreibung | Erwartetes Ergebnis |
+|-------------|--------------|---------------------|
+|             |              |                     |
+|             |              |                     |
+
+
+# Anmerkungen Digitalisierungsteam
+Technische Bewertung, Architekturentscheidungen, Risiken, offene Punkte.
