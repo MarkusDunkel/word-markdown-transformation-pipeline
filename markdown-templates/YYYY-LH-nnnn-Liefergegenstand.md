@@ -1,3 +1,5 @@
+|                     |                       |
+|---------------------|-----------------------|
 | Titel               |                       |
 | Dokument-Typ        | Konzept / Lastenheft  |
 | Liefergegenstand-ID |                       |
