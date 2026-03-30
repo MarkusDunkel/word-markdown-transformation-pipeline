@@ -21,4 +21,4 @@ lang: de-DE
 # Soll-Prozess & Anforderungen
 # Nutzen
 # Risiken / Offene Punkte
-# Bewertung Digitalisierungsteam / Entscheidung
+# Anmerkungen Digitalisierungsteam
