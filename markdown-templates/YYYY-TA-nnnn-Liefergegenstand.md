@@ -1,4 +1,21 @@
+---
+lang: de-DE
+---
+
 # Test- und Auslieferungsdokument – YYYY-TA-nnnn-Liefergegenstand
+
+|                     |                       |
+|---------------------|-----------------------|
+| Titel               |                       |
+| Dokument-Typ        | Lastenheft            |
+| Liefergegenstand-ID |                       |
+| Liefergegenstand    |                       |
+| Bereich             |                       |
+| Autor               |                       |
+| Version             |                       |
+| Status              | Entwurf / Freigegeben |
+| Freigeber           |                       |
+| Freigabedatum       |                       |
 
 ## 1. Dokumentinformationen
 ### 1.1 Prozess-ID und Dateiname: YYYY-TA-nnnn-Liefergegenstand.docx

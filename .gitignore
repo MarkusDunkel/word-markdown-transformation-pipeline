@@ -1,0 +1,4 @@
+# Ignore Microsoft Word documents
+*.doc
+*.docx
+*.docm
