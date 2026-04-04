@@ -22,7 +22,7 @@ fi
 
 TMP_MD="${OUTPUT_MD%.md}.raw.md"
 
-pandoc "$INPUT_DOCX" -f docx -t gfm --toc --number-sections -o "$TMP_MD"
+pandoc "$INPUT_DOCX" -f docx -t gfm --number-sections -o "$TMP_MD"
 python md_postprocess.py "$TMP_MD" "$OUTPUT_MD"
 rm -f "$TMP_MD"
 
