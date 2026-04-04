@@ -10,7 +10,7 @@ The overall flow consists of two directions:
 DOCX → pandoc → Markdown → optional Python post-processing
 
 ### 2. Markdown → Word
-Markdown → pandoc with Word template → DOCX → Python post-processing for tables
+Markdown → pandoc with Word template → DOCX → Python post-processing for tables + TOC field
 
 ## Dateien im Ordner
 
@@ -19,6 +19,7 @@ Markdown → pandoc with Word template → DOCX → Python post-processing for t
 | `convert_docx.sh` | Converts Word → Markdown |
 | `build_docx.sh` | Converts Markdown → Word |
 | `fix_table_borders.py` | Formats tables in DOCX |
+| `insert_toc.py` | Inserts heading + Word TOC field after first table |
 | `md_postprocess.py` | Cleans Markdown, e.g. removes TOC and adds YAML |
 | `vorlage.dotx` | Word template for Pandoc |
 | `README.md` | This documentation |
@@ -72,15 +73,17 @@ Example:
 
 ## Referenz: direktes Pandoc-Kommando
 
-At its core, the script is based on this Pandoc call:
+At its core, the script starts with this Pandoc call:
 
 ```bash
 pandoc /c/Users/markus.dunkel/Downloads/fertig.md \
   --resource-path=/c/Users/markus.dunkel/Downloads:/c/Users/markus.dunkel/Downloads/images \
   --reference-doc=./vorlage.dotx \
-  --toc \
   --number-sections \
-  -o /c/Users/markus.dunkel/Downloads/ziel.docx
+  -o /tmp/pandoc.docx
+
+python fix_table_borders.py /tmp/pandoc.docx /tmp/borders.docx
+python insert_toc.py /tmp/borders.docx /c/Users/markus.dunkel/Downloads/ziel.docx
 ```
 
 ## Namenskonvention für Templates
@@ -121,6 +124,10 @@ After Pandoc conversion, tables are automatically post-processed, for example:
 - Vertical centering
 - Correction of paragraph spacing
 
+### Inhaltsverzeichnis (Word-Feld)
+The TOC is inserted as a native Word field after the first table via `insert_toc.py`.
+Word updates this field on open (`w:updateFields=true`), so no local Word automation is required in the build step.
+
 ### Word-Vorlage
 Layout, fonts, headings, table of contents, and additional formatting are controlled via `vorlage.dotx`.
 
@@ -138,6 +145,9 @@ Then check `--resource-path`.
 ### Tabellen ohne Rahmen
 Then `fix_table_borders.py` was not executed, or `python-docx` is missing.
 
+### Kein Inhaltsverzeichnis eingefügt
+`insert_toc.py` requires at least one table in the generated DOCX. If no table exists, the script aborts with an error.
+
 ## Projektstruktur
 
 ```text
@@ -145,6 +155,7 @@ markdown_word_transform/
 ├── convert_docx.sh
 ├── build_docx.sh
 ├── fix_table_borders.py
+├── insert_toc.py
 ├── md_postprocess.py
 ├── vorlage.dotx
 └── README.md
