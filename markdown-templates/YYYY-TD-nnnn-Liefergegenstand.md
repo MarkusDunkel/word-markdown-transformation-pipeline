@@ -1,4 +1,21 @@
+---
+lang: de-DE
+---
+
 # Technische Dokumentation – YYYY-TD-nnnn-Liefergegenstand
+
+|                     |                       |
+|---------------------|-----------------------|
+| Titel               |                       |
+| Dokument-Typ        | Lastenheft            |
+| Liefergegenstand-ID |                       |
+| Liefergegenstand    |                       |
+| Bereich             |                       |
+| Autor               |                       |
+| Version             |                       |
+| Status              | Entwurf / Freigegeben |
+| Freigeber           |                       |
+| Freigabedatum       |                       |
 
 ## 1. Dokumentinformationen
 ### 1.1 Prozess-ID und Dateiname: YYYY-TD-nnnn-Liefergegenstand.md
