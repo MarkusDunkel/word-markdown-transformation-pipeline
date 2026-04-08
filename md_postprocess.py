@@ -190,14 +190,15 @@ def remove_blank_lines_between_list_items(text: str) -> str:
             i += 1
             continue
 
-        prev_line = cleaned_lines[-1] if cleaned_lines else ""
-
         j = i + 1
         while j < len(lines) and not lines[j].strip():
             j += 1
         next_line = lines[j] if j < len(lines) else ""
 
-        if LIST_ITEM_RE.match(prev_line) and LIST_ITEM_RE.match(next_line):
+        if (
+            is_list_item_block_end(cleaned_lines)
+            and LIST_ITEM_RE.match(next_line)
+        ):
             i = j
             continue
 
@@ -205,6 +206,27 @@ def remove_blank_lines_between_list_items(text: str) -> str:
         i += 1
 
     return "\n".join(cleaned_lines)
+
+
+def is_list_item_block_end(lines: list[str]) -> bool:
+    """
+    Prüft, ob der aktuell letzte nicht-leere Block mit einem Listeneintrag beginnt.
+    Damit werden auch umbrochene Pandoc-Zeilen (hängender Einzug) korrekt erkannt.
+    """
+    if not lines:
+        return False
+
+    end = len(lines) - 1
+    while end >= 0 and not lines[end].strip():
+        end -= 1
+    if end < 0:
+        return False
+
+    start = end
+    while start > 0 and lines[start - 1].strip():
+        start -= 1
+
+    return bool(LIST_ITEM_RE.match(lines[start]))
 
 
 def process_markdown(text: str, title: str, lang: str = "de") -> str:
