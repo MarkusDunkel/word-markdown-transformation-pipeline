@@ -18,6 +18,12 @@ HEADING_RE = re.compile(r"^\s{0,3}(#{1,6})\s+(.+?)\s*$")
 BULLET_TOC_RE = re.compile(r"^\s*[-*+]\s+\[.*\]\(#.*\)\s*$")
 ORDERED_TOC_RE = re.compile(r"^\s*\d+\.\s+\[.*\]\(#.*\)\s*$")
 PLAIN_LINK_TOC_RE = re.compile(r"^\s*\[.*\]\(#.*\)\s*$")
+PLAIN_TOC_HEADING_RE = re.compile(
+    r"^\s*(?:\d+[.)]?\s+)?(?:inhalt|inhaltsverzeichnis|contents|table of contents)\b",
+    re.IGNORECASE,
+)
+TOC_LINK_IN_LINE_RE = re.compile(r"\[[^\]]+\]\(#.+?\)")
+NUMBERED_TOC_TITLE_RE = re.compile(r"^\s*\d+(?:\.\d+)*[.)]?\s+\S+")
 
 # Entfernt nur einen YAML-Header ganz am Dokumentanfang
 YAML_HEADER_RE = re.compile(r"\A---\n.*?\n---\n+", re.DOTALL)
@@ -45,16 +51,20 @@ def parse_heading(line: str) -> tuple[int, str] | None:
 
 def is_toc_heading(line: str) -> bool:
     parsed = parse_heading(line)
-    if not parsed:
-        return False
-    _, heading = parsed
-    return heading.casefold() in TOC_HEADINGS
+    if parsed:
+        _, heading = parsed
+        return heading.casefold() in TOC_HEADINGS
+
+    return bool(PLAIN_TOC_HEADING_RE.match(line.strip()))
 
 
 def is_toc_entry_line(line: str) -> bool:
     stripped = line.strip()
     if not stripped:
         return False
+
+    if TOC_LINK_IN_LINE_RE.search(stripped):
+        return True
 
     return any(
         pattern.match(stripped)
@@ -93,8 +103,6 @@ def remove_toc_block(text: str) -> str:
         while i < len(lines) and not lines[i].strip():
             i += 1
 
-        removed_any_entries = False
-
         # TOC-Einträge + Leerzeilen entfernen
         while i < len(lines):
             current = lines[i]
@@ -103,8 +111,18 @@ def remove_toc_block(text: str) -> str:
                 i += 1
                 continue
 
+            # Ein neuer Markdown-Heading markiert sehr wahrscheinlich den Beginn
+            # des eigentlichen Dokuments.
+            if parse_heading(current):
+                break
+
             if is_toc_entry_line(current):
-                removed_any_entries = True
+                i += 1
+                continue
+
+            # Pandoc/Word kann TOC-Einträge umbrechen:
+            # "5.2 TITEL ..." in einer Zeile und den Link in der nächsten.
+            if NUMBERED_TOC_TITLE_RE.match(current):
                 i += 1
                 continue
 
