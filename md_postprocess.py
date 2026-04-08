@@ -27,6 +27,7 @@ YAML_HEADER_RE = re.compile(r"\A---\n.*?\n---\n+", re.DOTALL)
 WORD_ANCHOR_RE = re.compile(r'^<span id="_Toc\d+" class="anchor"></span>\s*')
 
 MULTI_BLANKS_RE = re.compile(r"\n{3,}")
+LIST_ITEM_RE = re.compile(r"^\s*(?:[-*+]\s+|\d+[.)]\s+)")
 
 
 def remove_yaml_header(text: str) -> str:
@@ -161,8 +162,49 @@ def derive_title_from_filename(path: Path) -> str:
 
 def normalize_spacing(text: str) -> str:
     text = text.replace("\r\n", "\n").replace("\r", "\n")
+    text = remove_blank_lines_between_list_items(text)
     text = MULTI_BLANKS_RE.sub("\n\n", text)
     return text.strip() + "\n"
+
+
+def remove_blank_lines_between_list_items(text: str) -> str:
+    """
+    Entfernt Leerzeilen zwischen direkt aufeinanderfolgenden Listeneinträgen.
+    Beispiel:
+    - Punkt A
+
+    - Punkt B
+    ->
+    - Punkt A
+    - Punkt B
+    """
+    lines = text.splitlines()
+    cleaned_lines: list[str] = []
+    i = 0
+
+    while i < len(lines):
+        line = lines[i]
+
+        if line.strip():
+            cleaned_lines.append(line)
+            i += 1
+            continue
+
+        prev_line = cleaned_lines[-1] if cleaned_lines else ""
+
+        j = i + 1
+        while j < len(lines) and not lines[j].strip():
+            j += 1
+        next_line = lines[j] if j < len(lines) else ""
+
+        if LIST_ITEM_RE.match(prev_line) and LIST_ITEM_RE.match(next_line):
+            i = j
+            continue
+
+        cleaned_lines.append(line)
+        i += 1
+
+    return "\n".join(cleaned_lines)
 
 
 def process_markdown(text: str, title: str, lang: str = "de") -> str:
