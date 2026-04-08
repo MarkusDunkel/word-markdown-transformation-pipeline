@@ -15,9 +15,18 @@ TOC_HEADINGS = {
 }
 
 HEADING_RE = re.compile(r"^\s{0,3}(#{1,6})\s+(.+?)\s*$")
+HEADING_NUMBER_PREFIX_RE = re.compile(
+    r"^(\s{0,3}#{1,6}\s+)\d+(?:\.\d+)*[.)]?\s+(.+?)\s*$"
+)
 BULLET_TOC_RE = re.compile(r"^\s*[-*+]\s+\[.*\]\(#.*\)\s*$")
 ORDERED_TOC_RE = re.compile(r"^\s*\d+\.\s+\[.*\]\(#.*\)\s*$")
 PLAIN_LINK_TOC_RE = re.compile(r"^\s*\[.*\]\(#.*\)\s*$")
+PLAIN_TOC_HEADING_RE = re.compile(
+    r"^\s*(?:\d+[.)]?\s+)?(?:inhalt|inhaltsverzeichnis|contents|table of contents)\b",
+    re.IGNORECASE,
+)
+TOC_LINK_IN_LINE_RE = re.compile(r"\[[^\]]+\]\(#.+?\)")
+NUMBERED_TOC_TITLE_RE = re.compile(r"^\s*\d+(?:\.\d+)*[.)]?\s+\S+")
 
 # Entfernt nur einen YAML-Header ganz am Dokumentanfang
 YAML_HEADER_RE = re.compile(r"\A---\n.*?\n---\n+", re.DOTALL)
@@ -27,6 +36,7 @@ YAML_HEADER_RE = re.compile(r"\A---\n.*?\n---\n+", re.DOTALL)
 WORD_ANCHOR_RE = re.compile(r'^<span id="_Toc\d+" class="anchor"></span>\s*')
 
 MULTI_BLANKS_RE = re.compile(r"\n{3,}")
+LIST_ITEM_RE = re.compile(r"^\s*(?:[-*+]\s+|\d+[.)]\s+)")
 
 
 def remove_yaml_header(text: str) -> str:
@@ -44,16 +54,20 @@ def parse_heading(line: str) -> tuple[int, str] | None:
 
 def is_toc_heading(line: str) -> bool:
     parsed = parse_heading(line)
-    if not parsed:
-        return False
-    _, heading = parsed
-    return heading.casefold() in TOC_HEADINGS
+    if parsed:
+        _, heading = parsed
+        return heading.casefold() in TOC_HEADINGS
+
+    return bool(PLAIN_TOC_HEADING_RE.match(line.strip()))
 
 
 def is_toc_entry_line(line: str) -> bool:
     stripped = line.strip()
     if not stripped:
         return False
+
+    if TOC_LINK_IN_LINE_RE.search(stripped):
+        return True
 
     return any(
         pattern.match(stripped)
@@ -92,8 +106,6 @@ def remove_toc_block(text: str) -> str:
         while i < len(lines) and not lines[i].strip():
             i += 1
 
-        removed_any_entries = False
-
         # TOC-Einträge + Leerzeilen entfernen
         while i < len(lines):
             current = lines[i]
@@ -102,8 +114,18 @@ def remove_toc_block(text: str) -> str:
                 i += 1
                 continue
 
+            # Ein neuer Markdown-Heading markiert sehr wahrscheinlich den Beginn
+            # des eigentlichen Dokuments.
+            if parse_heading(current):
+                break
+
             if is_toc_entry_line(current):
-                removed_any_entries = True
+                i += 1
+                continue
+
+            # Pandoc/Word kann TOC-Einträge umbrechen:
+            # "5.2 TITEL ..." in einer Zeile und den Link in der nächsten.
+            if NUMBERED_TOC_TITLE_RE.match(current):
                 i += 1
                 continue
 
@@ -142,6 +164,23 @@ def remove_word_anchor_spans(text: str) -> str:
     return "\n".join(cleaned_lines)
 
 
+def remove_heading_numbering(text: str) -> str:
+    """
+    Entfernt führende Nummerierungen in Markdown-Überschriften.
+    Beispiel: "# 3 ZIEL" -> "# ZIEL", "## 5.2 Schnittstellen" -> "## Schnittstellen"
+    """
+    cleaned_lines: list[str] = []
+
+    for line in text.splitlines():
+        match = HEADING_NUMBER_PREFIX_RE.match(line)
+        if match:
+            cleaned_lines.append(f"{match.group(1)}{match.group(2)}")
+            continue
+        cleaned_lines.append(line)
+
+    return "\n".join(cleaned_lines)
+
+
 def build_yaml_header(title: str, lang: str = "de") -> str:
     escaped_title = title.replace('"', '\\"')
     escaped_lang = lang.replace('"', '\\"')
@@ -161,8 +200,71 @@ def derive_title_from_filename(path: Path) -> str:
 
 def normalize_spacing(text: str) -> str:
     text = text.replace("\r\n", "\n").replace("\r", "\n")
+    text = remove_blank_lines_between_list_items(text)
     text = MULTI_BLANKS_RE.sub("\n\n", text)
     return text.strip() + "\n"
+
+
+def remove_blank_lines_between_list_items(text: str) -> str:
+    """
+    Entfernt Leerzeilen zwischen direkt aufeinanderfolgenden Listeneinträgen.
+    Beispiel:
+    - Punkt A
+
+    - Punkt B
+    ->
+    - Punkt A
+    - Punkt B
+    """
+    lines = text.splitlines()
+    cleaned_lines: list[str] = []
+    i = 0
+
+    while i < len(lines):
+        line = lines[i]
+
+        if line.strip():
+            cleaned_lines.append(line)
+            i += 1
+            continue
+
+        j = i + 1
+        while j < len(lines) and not lines[j].strip():
+            j += 1
+        next_line = lines[j] if j < len(lines) else ""
+
+        if (
+            is_list_item_block_end(cleaned_lines)
+            and LIST_ITEM_RE.match(next_line)
+        ):
+            i = j
+            continue
+
+        cleaned_lines.append(line)
+        i += 1
+
+    return "\n".join(cleaned_lines)
+
+
+def is_list_item_block_end(lines: list[str]) -> bool:
+    """
+    Prüft, ob der aktuell letzte nicht-leere Block mit einem Listeneintrag beginnt.
+    Damit werden auch umbrochene Pandoc-Zeilen (hängender Einzug) korrekt erkannt.
+    """
+    if not lines:
+        return False
+
+    end = len(lines) - 1
+    while end >= 0 and not lines[end].strip():
+        end -= 1
+    if end < 0:
+        return False
+
+    start = end
+    while start > 0 and lines[start - 1].strip():
+        start -= 1
+
+    return bool(LIST_ITEM_RE.match(lines[start]))
 
 
 def process_markdown(text: str, title: str, lang: str = "de") -> str:
@@ -170,6 +272,7 @@ def process_markdown(text: str, title: str, lang: str = "de") -> str:
     processed = remove_yaml_header(processed)
     processed = remove_toc_block(processed)
     processed = remove_word_anchor_spans(processed)
+    processed = remove_heading_numbering(processed)
     processed = normalize_spacing(processed)
     return build_yaml_header(title=title, lang=lang) + processed
 
