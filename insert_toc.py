@@ -110,9 +110,20 @@ def enable_update_fields_on_open(document: Document) -> None:
     update_fields.set(qn("w:val"), "true")
 
 
+def has_existing_title_at_start(document: Document, title_text: str) -> bool:
+    """Return True when the first paragraph already contains the same title in style 'Title'."""
+    if not title_text or not document.paragraphs:
+        return False
+
+    first_paragraph = document.paragraphs[0]
+    first_style = first_paragraph.style.name if first_paragraph.style else ""
+    first_text = first_paragraph.text.strip()
+    return first_style == "Title" and first_text == title_text.strip()
+
+
 def insert_title_at_document_start(document: Document, title_text: str) -> None:
     """Insert title paragraph as first body element with Word style 'Title'."""
-    if not title_text:
+    if not title_text or has_existing_title_at_start(document, title_text):
         return
 
     body = document._body._element
