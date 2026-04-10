@@ -1,6 +1,6 @@
 ---
 lang: "de-DE"
-title: "Lastenheft – YYYY-TA-nnnn-{Liefergegenstand}"
+title: "Lastenheft – YYYY-LH-nnnn-{Liefergegenstand}"
 ---
 
 |                     |                       |
