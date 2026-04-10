@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 from docx import Document
+from docx.enum.text import WD_BREAK
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
@@ -86,6 +87,11 @@ def add_toc_field(paragraph) -> None:
     paragraph._p.append(r_end)
 
 
+def add_page_break(paragraph) -> None:
+    """Add a page break at the end of the given paragraph."""
+    paragraph.add_run().add_break(WD_BREAK.PAGE)
+
+
 def enable_update_fields_on_open(document: Document) -> None:
     """Set Word's updateFields setting so fields refresh on open."""
     settings = document.settings.element
@@ -99,7 +105,7 @@ def enable_update_fields_on_open(document: Document) -> None:
 
 
 def process_document(input_path: Path, output_path: Path) -> None:
-    """Load input DOCX, insert heading + TOC after first table, and save output."""
+    """Load input DOCX and enforce TOC placement on page 2."""
     if not input_path.exists():
         raise FileNotFoundError(f"Input file not found: {input_path}")
 
@@ -113,11 +119,23 @@ def process_document(input_path: Path, output_path: Path) -> None:
 
     first_table = document.tables[0]
 
+    # Page 1: existing cover/meta content up to first table.
+    page_break_before_toc = insert_paragraph_after_table(first_table, "")
+    add_page_break(page_break_before_toc)
+
+    # Page 2: TOC heading + table of contents field.
     heading = insert_paragraph_after_table(first_table, "Inhaltsverzeichnis", style="Subtitle")
     toc_paragraph = insert_paragraph_after_table(first_table, "")
+    page_break_before_toc._p.addnext(heading._p)
     heading._p.addnext(toc_paragraph._p)
 
     add_toc_field(toc_paragraph)
+
+    # Page 3+: remaining content.
+    page_break_after_toc = insert_paragraph_after_table(first_table, "")
+    toc_paragraph._p.addnext(page_break_after_toc._p)
+    add_page_break(page_break_after_toc)
+
     enable_update_fields_on_open(document)
 
     document.save(str(output_path))
