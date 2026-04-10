@@ -1,6 +1,6 @@
 ---
 lang: "de-DE"
-title: "Test und Auslieferung – YYYY-TA-nnnn-{Liefergegenstand}"
+title: "YYYY-TA-nnnn-{Liefergegenstand}"
 ---
 
 |                     |                       |

@@ -1,6 +1,6 @@
 ---
 lang: "de-DE"
-title: "Technische Dokumentation – YYYY-TD-nnnn-{Liefergegenstand}"
+title: "YYYY-TD-nnnn-{Liefergegenstand}"
 ---
 
 |                     |                       |
