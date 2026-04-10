@@ -198,6 +198,19 @@ def derive_title_from_filename(path: Path) -> str:
     return name if name else "Dokument"
 
 
+def derive_title_from_content(text: str) -> str | None:
+    """
+    Leitet den Titel aus der ersten gefundenen Überschrift ab.
+    """
+    for line in text.splitlines():
+        parsed_heading = parse_heading(line)
+        if parsed_heading:
+            _, heading = parsed_heading
+            return heading.strip()
+
+    return None
+
+
 def normalize_spacing(text: str) -> str:
     text = text.replace("\r\n", "\n").replace("\r", "\n")
     text = remove_blank_lines_between_list_items(text)
@@ -321,7 +334,18 @@ def main() -> int:
         print(f"Fehler beim Lesen von {input_path}: {exc}", file=sys.stderr)
         return 1
 
-    title = args.title if args.title else derive_title_from_filename(output_path)
+    if args.title:
+        title = args.title
+    else:
+        title_source = text
+        title_source = remove_yaml_header(title_source)
+        title_source = remove_toc_block(title_source)
+        title_source = remove_word_anchor_spans(title_source)
+        title_source = remove_heading_numbering(title_source)
+
+        title = derive_title_from_content(title_source)
+        if not title:
+            title = derive_title_from_filename(output_path)
 
     processed = process_markdown(text=text, title=title, lang=args.lang)
 
