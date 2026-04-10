@@ -23,6 +23,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("input", type=Path, help="Path to input .docx file")
     parser.add_argument("output", type=Path, help="Path to output .docx file")
+    parser.add_argument(
+        "--title",
+        type=str,
+        default="",
+        help="Optional document title to insert at first position with style 'Title'.",
+    )
     return parser.parse_args()
 
 
@@ -104,7 +110,23 @@ def enable_update_fields_on_open(document: Document) -> None:
     update_fields.set(qn("w:val"), "true")
 
 
-def process_document(input_path: Path, output_path: Path) -> None:
+def insert_title_at_document_start(document: Document, title_text: str) -> None:
+    """Insert title paragraph as first body element with Word style 'Title'."""
+    if not title_text:
+        return
+
+    body = document._body._element
+    title_paragraph = OxmlElement("w:p")
+    body.insert(0, title_paragraph)
+
+    paragraph = document.add_paragraph()
+    paragraph._p.getparent().remove(paragraph._p)
+    paragraph._p = title_paragraph
+    paragraph.style = "Title"
+    paragraph.add_run(title_text)
+
+
+def process_document(input_path: Path, output_path: Path, title: str = "") -> None:
     """Load input DOCX and enforce TOC placement on page 2."""
     if not input_path.exists():
         raise FileNotFoundError(f"Input file not found: {input_path}")
@@ -113,6 +135,7 @@ def process_document(input_path: Path, output_path: Path) -> None:
         raise ValueError(f"Input file must be a .docx file: {input_path}")
 
     document = Document(str(input_path))
+    insert_title_at_document_start(document, title.strip())
 
     if not document.tables:
         raise RuntimeError("No table found in the document. Cannot insert TOC after first table.")
@@ -145,7 +168,7 @@ def main() -> int:
     args = parse_args()
 
     try:
-        process_document(args.input, args.output)
+        process_document(args.input, args.output, args.title)
     except FileNotFoundError as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
