@@ -34,6 +34,9 @@ YAML_HEADER_RE = re.compile(r"\A---\n.*?\n---\n+", re.DOTALL)
 # Typische Pandoc/Word-Anker:
 # <span id="_Toc225495975" class="anchor"></span>
 WORD_ANCHOR_RE = re.compile(r'^<span id="_Toc\d+" class="anchor"></span>\s*')
+WORD_TOC_FIELD_HINT_RE = re.compile(
+    r"^\s*\(Right-click and choose 'Update Field' to build the table of contents\.\)\s*$"
+)
 
 MULTI_BLANKS_RE = re.compile(r"\n{3,}")
 LIST_ITEM_RE = re.compile(r"^\s*(?:[-*+]\s+|\d+[.)]\s+)")
@@ -181,6 +184,21 @@ def remove_heading_numbering(text: str) -> str:
     return "\n".join(cleaned_lines)
 
 
+def remove_word_toc_field_hint(text: str) -> str:
+    """
+    Entfernt den von Word eingefügten TOC-Hinweistext:
+    "(Right-click and choose 'Update Field' to build the table of contents.)"
+    """
+    cleaned_lines: list[str] = []
+
+    for line in text.splitlines():
+        if WORD_TOC_FIELD_HINT_RE.match(line):
+            continue
+        cleaned_lines.append(line)
+
+    return "\n".join(cleaned_lines)
+
+
 def build_yaml_header(title: str, lang: str = "de") -> str:
     escaped_title = title.replace('"', '\\"')
     escaped_lang = lang.replace('"', '\\"')
@@ -286,6 +304,7 @@ def process_markdown(text: str, title: str, lang: str = "de") -> str:
     processed = remove_toc_block(processed)
     processed = remove_word_anchor_spans(processed)
     processed = remove_heading_numbering(processed)
+    processed = remove_word_toc_field_hint(processed)
     processed = normalize_spacing(processed)
     return build_yaml_header(title=title, lang=lang) + processed
 
@@ -342,6 +361,7 @@ def main() -> int:
         title_source = remove_toc_block(title_source)
         title_source = remove_word_anchor_spans(title_source)
         title_source = remove_heading_numbering(title_source)
+        title_source = remove_word_toc_field_hint(title_source)
 
         title = derive_title_from_content(title_source)
         if not title:
