@@ -1,6 +1,6 @@
 ---
 lang: "de-DE"
-title: "Pflichtenheft – YYYY-PH-nnnn-{Liefergegenstand}"
+title: "YYYY-PH-nnnn-{Liefergegenstand}"
 ---
 
 |                     |                       |
