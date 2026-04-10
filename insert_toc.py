@@ -113,7 +113,7 @@ def process_document(input_path: Path, output_path: Path) -> None:
 
     first_table = document.tables[0]
 
-    heading = insert_paragraph_after_table(first_table, "Inhaltsverzeichnis", style="Heading 1")
+    heading = insert_paragraph_after_table(first_table, "Inhaltsverzeichnis", style="Subtitle")
     toc_paragraph = insert_paragraph_after_table(first_table, "")
     heading._p.addnext(toc_paragraph._p)
 
