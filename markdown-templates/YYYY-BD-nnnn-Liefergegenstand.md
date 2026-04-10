@@ -1,8 +1,7 @@
 ---
-lang: de-DE
+lang: "de-DE"
+title: "Benutzerdokumentation – YYYY-TA-nnnn-{Liefergegenstand}"
 ---
-
-# Benutzerdokumentation – YYYY-BD-nnnn-Liefergegenstand
 
 |                     |                       |
 |---------------------|-----------------------|

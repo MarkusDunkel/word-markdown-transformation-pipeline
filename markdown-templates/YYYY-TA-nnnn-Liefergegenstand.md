@@ -1,8 +1,7 @@
 ---
-lang: de-DE
+lang: "de-DE"
+title: "Test und Auslieferung – YYYY-TA-nnnn-{Liefergegenstand}"
 ---
-
-# Test- und Auslieferungsdokument – YYYY-TA-nnnn-Liefergegenstand
 
 |                     |                       |
 |---------------------|-----------------------|
